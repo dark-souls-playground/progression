@@ -1,0 +1,70 @@
+<div style="margin-bottom:400px">
+
+  <h1>Dark Souls Progression</h1>
+
+  <div style="background-color:#606060">
+    <table style="border-spacing:0px; border-collapse: collapse; border-bottom:solid #606060 8px;">
+      <tr *ngFor="let row of grid" style="border:0px; margin:0px; padding:0px">
+        <td style="background-color:#ffff80">
+          <span>From <b>{{row[0].zone.title}}</b>:</span>
+        </td>
+        <td 
+            *ngFor="let node of row"
+            style="text-align:center; vertical-align:top; border:0px; padding:0px;"
+            [style.display]="!(shouldHideDone(node)) && ((isVisible(node) || showAllSpoilers)) ? 'table-cell' : 'none'"
+        >
+          <div
+              style="background-color:white; min-height:8em; min-width:12em; max-height:8em; max-width:12em; margin-left:8px; margin-top:8px; padding:8px; border-radius:8px 8px 0px 0px; "
+          >
+            <span>{{node.recomm}}</span><br/>
+            <span style="font-size:small">From {{node.zone.title}}</span><br/>
+            <span><!--Did you -->{{getVerb(node)}} {{node.title}}<!--?--></span><br/>
+            <!--<span *ngIf="node.done" style="color:#20a020; font-weight:bold;">&check;</span>-->
+            <div *ngIf="node.done" style="display:inline-block; color:white; background-color:#20a020; font-weight:bold; width:6em; padding:0.40em; border-radius:8px;">&check;</div>
+            <button *ngIf="isUnlockable(node)" class="normal" (click)="markDone(node)" style="width:10em; padding:0.5em;">I did <!--{{getVerbPastTense(node)}} this--></button>
+            <div *ngIf="!node.done && isPartiallyUnlocked(node)" style="display:inline-block; color:white; background-color:#a03020; width:6em; padding:0.40em; border-radius:8px;">Locked</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!--
+  <table>
+    <tbody>
+      <tr
+          *ngFor="let node of nodes"
+          style="height:3em;"
+          [style.color]="node.done ? '#404040' : isPartiallyUnlocked(node) ? '#a03020' : isVisible(node) ? '#1030c0' : 'red'"
+          [style.display]="(isVisible(node) || showAllSpoilers) ? 'table-row' : 'none'"
+      >
+        <td>
+          <div *ngIf="!node.done" style="background-color:#404040; min-width:85px; min-height:64px;">
+            <img *ngIf="node.image" [src]="node.image" style="vertical-align:center; max-width:85px; max-height:64px; margin: auto;" />
+          </div>
+        </td>
+        <td style="text-align:right">{{getVerb(node)}}</td>
+        <td style="width:20em"><b>{{node.title}}</b></td>
+        <td>{{node.recomm}}</td>
+        <td *ngIf="node.done" style="text-align:center"><span style="color:#20a020; font-weight:bold;">
+          &check;
+        </span></td>
+        <td *ngIf="isUnlockable(node)">
+          <button class="normal" (click)="markDone(node)" style="width:10em">I {{getVerbPastTense(node)}} this</button>
+        </td>
+        <td *ngIf="!node.done && isPartiallyUnlocked(node)">
+          LOCKED
+        </td>
+        <td>{{getStatus(node)}}</td>
+      </tr>
+    </tbody>
+  </table>
+  -->
+
+  <button class="warning" *ngIf="!showAllSpoilers" (click)="setShowAllSpoilers(true)" style="width:10em">Show Spoilers</button>
+  <button class="warning" *ngIf="showAllSpoilers"  (click)="setShowAllSpoilers(false)" style="width:10em">Hide Spoilers</button>
+
+  <button class="warning" *ngIf="!showDone" (click)="setShowDone(true)" style="width:10em">Show Completed</button>
+  <button class="warning" *ngIf="showDone"  (click)="setShowDone(false)" style="width:10em">Hide Completed</button>
+
+</div>

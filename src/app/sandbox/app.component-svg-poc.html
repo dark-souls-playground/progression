@@ -1,0 +1,118 @@
+<div style="margin-bottom:400px; min-width:10000px; min-height:10000px;">
+
+  <h1>Dark Souls Progression</h1>
+
+  <svg width="6000" height="6000">
+
+    <!-- used to create backdrop shadows  on rects etc. -->
+    <filter id="dropshadow" height="130%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> <!-- stdDeviation is how much to blur -->
+      <feOffset dx="2" dy="2" result="offsetblur"/> <!-- how much to offset -->
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.5"/> <!-- slope is the opacity of the shadow -->
+      </feComponentTransfer>
+      <feMerge> 
+        <feMergeNode/> <!-- this contains the offset blurred image -->
+        <feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
+      </feMerge>
+    </filter>
+
+    <path stroke="green" stroke-width="10px" fill="transparent"
+      [attr.d]="'M 100 100 c 30 0 40 10 40 40'">
+    </path>
+
+    <g *ngFor="let zone of allZones" [attr.transform]="'translate(' + getZonePosX(zone) + ',' + getZonePosYStart(zone) + ')'">
+      <!--<rect class="zon" x="-8" y="-8" [attr.width]="200+8+8" [attr.height]="getZonePosYEnd(zone)-getZonePosYStart(zone)+8+8" [attr.fill]="zone.color" fill-opacity="0.5"></rect>-->
+      <rect class="zon"
+        [attr.x]     = "-0.75 * NODE_WIDTH"          [attr.y]="-40"
+        [attr.width] = " 2.50 * NODE_WIDTH"     [attr.height]="getZonePosYEnd(zone) - getZonePosYStart(zone) + 40*2"
+        [attr.fill]  = "zone.color" fill-opacity="0.5"
+      ></rect>
+      <!--<rect class="zon" x="-80" y="-80" [attr.width]="200+80+80" [attr.height]="getZonePosYEnd(zone)-getZonePosYStart(zone)+80+80" [attr.fill]="zone.color" fill-opacity="0.1"></rect>-->
+      <text class="zon"
+        [attr.x]     = "-0.75 * NODE_WIDTH + NODE_PADDING_TITLE" [attr.y] ="-NODE_PADDING_TITLE" [attr.fill]="'#606060'">{{zone.title}}</text>
+    </g>
+
+    <g *ngFor="let node of allNodes">
+      <g *ngFor="let depNodeId of node.ifAny">
+        <line class="dep" 
+          [attr.x1]="getNodePosX(node) + 100"
+          [attr.y1]="getNodePosY(node)"
+          [attr.x2]="getNodePosX(node) + 100"
+          [attr.y2]="getNodeIdPosY(depNodeId) + 50 + 10"
+        />
+        <line class="dep" 
+          [attr.x1]="getNodePosX(node) + 100"
+          [attr.y1]="getNodeIdPosY(depNodeId) + 50 + 10"
+          [attr.x2]="getNodeIdPosX(depNodeId) + 100"
+          [attr.y2]="getNodeIdPosY(depNodeId) + 50 + 10"
+        />
+        <line class="dep" 
+          [attr.x1]="getNodeIdPosX(depNodeId) + 100"
+          [attr.y1]="getNodeIdPosY(depNodeId) + 50 + 10"
+          [attr.x2]="getNodeIdPosX(depNodeId) + 100"
+          [attr.y2]="getNodeIdPosY(depNodeId) + 50"
+        />
+        <path stroke="green" stroke-width="4px" fill="transparent"
+          [attr.d]="' M ' + (getNodePosX(node) + 100)            + ' ' + (getNodePosY(node)) +
+                    ' V ' + (getNodeIdPosY(depNodeId) + 50 + 10) +
+                    ' H ' + (getNodeIdPosX(depNodeId) + 100)     +
+                    ' V ' + (getNodeIdPosY(depNodeId) + 50)">
+        </path>
+      </g>
+    </g>
+
+    <g *ngFor="let node of allNodes">
+      <g *ngFor="let depNodeId of node.ifAll">
+        <line class="dep" 
+          [attr.x1]="getNodePosX(node) + 100"
+          [attr.y1]="getNodePosY(node)"
+          [attr.x2]="getNodePosX(node) + 100"
+          [attr.y2]="getNodeIdPosY(depNodeId) + 50 + 10"
+        />
+        <line class="dep" 
+          [attr.x1]="getNodePosX(node) + 100"
+          [attr.y1]="getNodeIdPosY(depNodeId) + 50 + 10"
+          [attr.x2]="getNodeIdPosX(depNodeId) + 100"
+          [attr.y2]="getNodeIdPosY(depNodeId) + 50 + 10"
+        />
+        <line class="dep" 
+          [attr.x1]="getNodeIdPosX(depNodeId) + 100"
+          [attr.y1]="getNodeIdPosY(depNodeId) + 50 + 10"
+          [attr.x2]="getNodeIdPosX(depNodeId) + 100"
+          [attr.y2]="getNodeIdPosY(depNodeId) + 50"
+        />
+        <path stroke="red" stroke-width="4px" fill="transparent"
+          [attr.d]="' M ' + (getNodePosX(node) + 100)            + ' ' + (getNodePosY(node)) +
+                    ' V ' + (getNodeIdPosY(depNodeId) + 50 + 10) +
+                    ' H ' + (getNodeIdPosX(depNodeId) + 100)     +
+                    ' V ' + (getNodeIdPosY(depNodeId) + 50)">
+        </path>
+      </g>
+    </g>
+
+    <g *ngFor="let node of allNodes" [attr.transform]="'translate(' + getNodePosX(node) + ',' + getNodePosY(node) + ')'">
+      <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+      <text class="loc" x="100" y="25">{{getVerb(node)}} {{node.title}}</text>
+      <!--<line class="dep" x1="100" y1="0" x2="100" y2="-15" />-->
+    </g>
+
+  </svg>
+
+    <!--
+  <div style="position:relative;">
+    <div *ngFor="let node of nodes"
+      style="position:absolute; background-color:white; margin-left:8px; margin-top:8px; padding:8px; border-radius:8px; "
+      [style.left]="getNodePosX(node) + 'px'"
+      [style.top]="getNodePosY(node) + 'px'"
+      [style.minHeight]="NODE_HEIGHT"
+      [style.maxHeight]="NODE_HEIGHT"
+      [style.minWidth]="NODE_WIDTH"
+      [style.maxWidth]="NODE_WIDTH"
+    >
+      {{getVerb(node)}} {{node.title}} 
+    </div>
+  </div>
+  -->
+
+</div>

@@ -1,0 +1,78 @@
+<div style="margin-bottom:2em; background-color:white">
+
+  <h1 style="text-align:center;">Dark Souls Progression</h1>
+
+  <!--
+  <button class="warning" *ngIf="!showAllSpoilers" (click)="setShowAllSpoilers(true)" style="width:10em; font-size:1em; margin:1em;">Show Spoilers</button>
+  <button class="warning" *ngIf="showAllSpoilers"  (click)="setShowAllSpoilers(false)" style="width:10em; font-size:1em; margin:1em;">Hide Spoilers</button>
+  <button class="warning" *ngIf="!showDone" (click)="setShowDone(true)" style="width:10em; font-size:1em; margin:1em;">Show Completed</button>
+  <button class="warning" *ngIf="showDone"  (click)="setShowDone(false)" style="width:10em; font-size:1em; margin:1em;">Hide Completed</button>
+  -->
+
+  <div *ngIf="!ackAbout" style="text-align:center; margin: auto;">
+    <div style="padding:16px; border-radius:8px; margin-bottom:1em; background-color:#e0e0e0;">
+      <p><b>"What could I do next? No spoilers!"</b></p>
+      <p>This app only shows things directly connected to where you tell us you've already been.</p>
+      <button class="normal" (click)="ackAbout=true" style="width:10em; font-size:1em; margin:0.5em;">OK</button>
+    </div>
+  </div>
+  
+  <div style="margin-top:1em;">
+    <div
+      *ngFor="let zone of allZones"
+      style="padding:16px; border-radius:8px; margin-bottom:1em;"
+      [style.backgroundColor]="zone.color"
+      [style.display]="shouldDisplayZone(zone) ? 'block' : 'none'"
+    >
+      <div style="text-align: center; padding-bottom:1em;"><b>{{zone.title}}</b></div>
+      <table style="width:100%; border-spacing:0px; border-collapse:collapse;">
+        <!--<ng-container *ngFor="let node of getNodesInZone(zone)">-->
+          <tr *ngFor="let node of getNodesInZone(zone)" style="height:4em; background-color:white; border-bottom:solid #e0e0e0 1px;" [style.display]="!(shouldHideDone(node)) && ((isVisible(node) || showAllSpoilers)) ? 'table-row' : 'none'">
+            <td style="width:4em; padding-left:1em; ">
+              <div *ngIf="node.done" style="display:flex; align-items:center; justify-content:center;">
+                <span style="color:#20a020; font-weight:bold;">&check;</span>
+              </div>
+              <div *ngIf="!node.done && isPartiallyUnlocked(node)"  style="display:flex; align-items:center; justify-content:center;">
+                <span style="color:#a03020; font-weight:bold;">Locked</span>
+              </div>
+              <div *ngIf="!node.done && !isPartiallyUnlocked(node) && !isUnlockable(node)"  style="display:flex; align-items:center; justify-content:center;">
+                <span style="color:#a03020; font-weight:bold;">SPOILER</span>
+              </div>
+              <button *ngIf="isUnlockable(node)" class="normal" (click)="markDone(node)" style="width:100%; font-size:1em; height:2.5em;">I did</button>
+            </td>
+            <td>
+              <span>{{getVerb(node)}} {{node.title}}</span><br/>
+            </td>
+          </tr>
+        <!--</ng-container>-->
+      </table>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin: auto;">
+    <button class="normal" *ngIf="!showDone" (click)="setShowDone(true)" style="width:10em; font-size:1em; margin:0.5em;">Show Completed</button>
+    <button class="normal" *ngIf="showDone"  (click)="setShowDone(false)" style="width:10em; font-size:1em; margin:0.5em;">Hide Completed</button>
+  </div>
+
+  <div style="padding:8px; text-align:center;">
+    <p>Still want some help?</p>
+    <p><span style="font-weight:bold; color:#a03020;">r/darksouls</span></p>
+    <p>"Don't you dare go hollow."</p>
+  </div>
+
+  <div style="text-align:center; margin: auto;">
+    <button class="warning" *ngIf="!showAllSpoilers" (click)="setShowAllSpoilers(true)" style="width:10em; font-size:1em; margin:0.5em;">Show All Spoilers</button>
+    <button class="warning" *ngIf="showAllSpoilers"  (click)="setShowAllSpoilers(false)" style="width:10em; font-size:1em; margin:0.5em;">Hide Spoilers</button>
+  </div>
+
+    <!--
+    <ul style="text-align:left">
+      <ng-container *ngFor="let zone of allZones">
+        <ng-container *ngFor="let node of getNodesInZone(zone)">
+          <li *ngIf="node.done">{{getVerb(node)}} {{node.title}}</li>
+        </ng-container>
+      </ng-container>
+    </ul>
+    -->
+
+</div>

@@ -1,0 +1,407 @@
+<h1>Dark Souls Progression</h1>
+
+<h2>Simple Version</h2>
+
+<svg width="1350" height="2200">
+
+    <!-- used to create backdrop shadows  on rects etc. -->
+    <filter id="dropshadow" height="130%">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> <!-- stdDeviation is how much to blur -->
+        <feOffset dx="2" dy="2" result="offsetblur"/> <!-- how much to offset -->
+        <feComponentTransfer>
+          <feFuncA type="linear" slope="0.5"/> <!-- slope is the opacity of the shadow -->
+        </feComponentTransfer>
+        <feMerge> 
+          <feMergeNode/> <!-- this contains the offset blurred image -->
+          <feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
+        </feMerge>
+      </filter>
+
+    <g transform="translate(0,25)">
+
+        <!-- Escape the Asylum -->
+
+        <g transform="translate(500,0)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">N. Undead Asylum</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(500,75)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Asylum Demon</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(500,150)">
+            <rect class="maj" x="0" y="0" width="200" height="50"></rect>
+            <text class="maj" x="100" y="25">Escape by Crow</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <!-- Ring the First Bell -->
+
+        <g transform="translate(500,225)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Firelink Shrine</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(500,300)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Undead Burg Pt. 1</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(500,375)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Taurus Demon</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(500,450)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Undead Burg Pt. 2</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+            <line class="dep" x1="200" y1="25" x2="225" y2="25" />
+            <line class="dep" x1="225" y1="25" x2="225" y2="-200" />
+            <line class="dep" x1="225" y1="-200" x2="250" y2="-200" />
+        </g>
+
+        <g transform="translate(500,525)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Undead Parish</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" /><!-- gargoyles -->
+            <line class="dep" x1="0" y1="25" x2="-275" y2="25" />
+            <line class="dep" x1="-275" y1="25" x2="-275" y2="750" />
+        </g>
+
+        <g transform="translate(500,600)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Bell Gargoyles</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(500,675)">
+            <rect class="maj" x="0" y="0" width="200" height="50"></rect>
+            <text class="maj" x="100" y="25">Ring the First Bell</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="62" />
+            <line class="dep" x1="100" y1="62" x2="225" y2="62" />
+            <line class="dep" x1="225" y1="62" x2="225" y2="75" />
+        </g>
+
+        <!-- Ring the Second Bell -->
+        
+        <g transform="translate(750,225)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Undead Burg Lower</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(750,300)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Capra Demon</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(750,375)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">The Depths</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(750,450)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Gaping Dragon</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(750,525)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Blighttown</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(750,600)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Chaos Witch Quelaag</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+            <line class="dep" x1="200" y1="25" x2="350" y2="25" />
+            <line class="dep" x1="350" y1="25" x2="350" y2="850" />
+        </g>
+
+        <g transform="translate(750,675)">
+            <rect class="maj" x="0" y="0" width="200" height="50"></rect>
+            <text class="maj" x="100" y="25">Ring the Second Bell</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="62" />
+            <line class="dep" x1="100" y1="62" x2="-25" y2="62" />
+            <line class="dep" x1="-25" y1="62" x2="-25" y2="75" />
+        </g>
+
+        <!-- Get the Lordvessel -->
+        
+        <g transform="translate(625,750)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Sen's Fortress</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(625,825)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Iron Golem</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(625,900)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Anor Londo</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(625,975)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Ornstein & Smough</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(625,1050)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Chamber of the Princess</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(625,1125)">
+            <rect class="maj" x="0" y="0" width="200" height="50"></rect>
+            <text class="maj" x="100" y="25">Get the Lordvessel</text>
+            <line class="xor" x1="100" y1="50" x2="100" y2="62" />
+            <line class="xor" x1="100" y1="62" x2="-25" y2="62" />
+            <line class="xor" x1="-25" y1="62" x2="-25" y2="75" />
+            <line class="xor" x1="100" y1="62" x2="225" y2="62" />
+            <line class="xor" x1="225" y1="62" x2="225" y2="75" />
+        </g>
+
+        <!-- Sif -->
+
+        <g transform="translate(125,1200)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Darkroot Garden</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(125,1275)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Sif</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(125,1350)">
+            <rect class="maj" x="0" y="0" width="200" height="50"></rect>
+            <text class="maj" x="100" y="25">Get Covenant of Artorias</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="325" />
+            <line class="dep" x1="100" y1="325" x2="125" y2="325" />
+        </g>
+
+        <!-- Kaathe or Frampt ... Place the Lordvessel -->
+
+        <g transform="translate(500,1200)">
+            <rect class="key" x="0" y="0" width="200" height="50"></rect>
+            <text class="key" x="100" y="25">Join Kaathe</text>
+            <line class="xor" x1="100" y1="50" x2="100" y2="62" />
+            <line class="xor" x1="100" y1="62" x2="225" y2="62" />
+            <line class="xor" x1="225" y1="62" x2="225" y2="75" />
+        </g>
+
+        <g transform="translate(750,1200)">
+            <rect class="key" x="0" y="0" width="200" height="50"></rect>
+            <text class="key" x="100" y="25">Join Frampt</text>
+            <line class="xor" x1="100" y1="50" x2="100" y2="62" />
+            <line class="xor" x1="100" y1="62" x2="-25" y2="62" />
+            <line class="xor" x1="-25" y1="62" x2="-25" y2="75" />
+        </g>
+
+        <g transform="translate(625,1275)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Firelink Altar</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(625,1350)">
+            <rect class="maj" x="0" y="0" width="200" height="50"></rect>
+            <text class="maj" x="100" y="25">Place the Lordvessel</text>
+            <!--<line class="dep" x1="100" y1="50" x2="100" y2="525" />--><!--fill lordvessel-->
+            <line class="fog" x1="95" y1="50" x2="95" y2="175" /><!--duke archives-->
+            <line class="fog" x1="95" y1="175" x2="75" y2="175" /><!--duke archives-->
+            <line class="fog" x1="100" y1="50" x2="100" y2="325" /><!--tomb of giants-->
+            <line class="fog" x1="100" y1="325" x2="125" y2="325" /><!--tomb of giants-->
+            <line class="fog" x1="105" y1="50" x2="105" y2="138" /><!--demon firesage-->
+            <line class="fog" x1="105" y1="138" x2="350" y2="138" /><!--demon firesage-->
+            <line class="fog" x1="350" y1="138" x2="350" y2="175" /><!--demon firesage-->
+            <line class="fog" x1="350" y1="175" x2="375" y2="175" /><!--demon firesage-->
+        </g>
+
+        <!-- New Londo ... Four Kings -->
+
+        <g transform="translate(250,1500)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">New Londo Ruins</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(250,1575)">
+            <rect class="maj" x="0" y="0" width="200" height="50"></rect>
+            <text class="maj" x="100" y="25">Lower the Water</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(250,1650)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">The Abyss</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(250,1725)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Four Kings</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(250,1800)">
+            <rect class="maj" x="0" y="0" width="200" height="50"></rect>
+            <text class="maj" x="100" y="25">Get a Lord Soul Shard</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="105" />
+            <line class="dep" x1="100" y1="105" x2="400" y2="105" />
+        </g>
+
+        <!-- Seath -->
+
+        <g transform="translate(500,1500)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Duke's Archives</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(500,1575)">
+            <rect class="maj" x="0" y="0" width="200" height="50"></rect>
+            <text class="maj" x="100" y="25">Imprisoned by Seath</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(500,1650)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Crystal Caves</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(500,1725)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Seath</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(500,1800)">
+            <rect class="maj" x="0" y="0" width="200" height="50"></rect>
+            <text class="maj" x="100" y="25">Get a Lord Soul Shard</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="95" />
+            <line class="dep" x1="100" y1="95" x2="220" y2="95" />
+        </g>
+
+        <!-- Nito -->
+
+        <g transform="translate(750,1500)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Catacombs</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(750,1575)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Pinwheel</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(750,1650)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Tomb of the Giants</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(750,1725)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Gravelord Nito</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(750,1800)">
+            <rect class="maj" x="0" y="0" width="200" height="50"></rect>
+            <text class="maj" x="100" y="25">Get a Lord Soul</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="95" />
+            <line class="dep" x1="100" y1="95" x2="-20" y2="95" />
+        </g>
+
+        <!-- Bed of Chaos -->
+
+        <g transform="translate(1000,1350)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Demon Ruins</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(1000,1425)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Ceaseless Discharge</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(1000,1500)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Demon Firesage</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(1000,1575)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Centipede Demon</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(1000,1650)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Lost Izalith</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(1000,1725)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Bed of Chaos</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(1000,1800)">
+            <rect class="maj" x="0" y="0" width="200" height="50"></rect>
+            <text class="maj" x="100" y="25">Get a Lord Soul</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="105" />
+            <line class="dep" x1="100" y1="105" x2="-200" y2="105" />
+        </g>
+
+        <!-- Fill Lordvessel ... Gwyn -->
+
+        <g transform="translate(625,1875)">
+            <rect class="maj" x="0" y="0" width="200" height="50"></rect>
+            <text class="maj" x="100" y="25">Fill the Lordvessel</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(625,1950)">
+            <rect class="loc" x="0" y="0" width="200" height="50"></rect>
+            <text class="loc" x="100" y="25">Kiln of the First Flame</text>
+            <line class="dep" x1="100" y1="50" x2="100" y2="100" />
+        </g>
+
+        <g transform="translate(625,2025)">
+            <rect class="kil" x="0" y="0" width="200" height="50"></rect>
+            <text class="kil" x="100" y="25">Gwyn, Lord of Cinder</text>
+        </g>
+
+    </g><!-- end outer group -->
+
+</svg>

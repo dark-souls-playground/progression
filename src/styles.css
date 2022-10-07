@@ -1,0 +1,22 @@
+body { background-color: white; font-family: Candara, 'Lora', serif; }
+svg { background-color: #f8f8f8; }
+text { text-anchor: middle; alignment-baseline: middle; }
+text.zon { text-anchor: start; }
+rect { rx: 10; ry: 10; filter:url(#dropshadow); }
+rect.loc { fill: white; }
+text.loc { fill: #202020; }
+line.dep { stroke: #a0a0a0; stroke-width:2; }
+line.xor { stroke: #ffff80; stroke-width:2; }
+line.fog { stroke: #ffb23e; stroke-width:4; }
+rect.kil { fill: #ff8080; }
+text.kil { fill: #802020; }
+rect.maj { fill: #80ff80; }
+text.maj { fill: #208020; }
+rect.key { fill: #ffff80; }
+text.key { fill: #808020; }
+
+button { color: white; border-radius:8px; padding:8px; font-family: Candara, 'Lora', serif; } 
+td { padding-left: 0.5em; padding-right: 0.5em; }
+
+button.normal  { background-color: #202080; }
+button.warning { background-color: #a03020; border-color: #802020; }
