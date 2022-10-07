@@ -1,4 +1,4 @@
-body { background-color: white; font-family: 'Bitter', 'Candara', serif; }
+body { background-color: white; font-family: 'Tinos', serif; }
 svg { background-color: #f8f8f8; }
 text { text-anchor: middle; alignment-baseline: middle; }
 text.zon { text-anchor: start; }
@@ -15,7 +15,7 @@ text.maj { fill: #208020; }
 rect.key { fill: #ffff80; }
 text.key { fill: #808020; }
 
-button { color: white; border-radius:8px; padding:8px; font-family: Candara, 'Lora', serif; } 
+button { color: white; border-radius:8px; padding:8px; font-family: 'Tinos', serif; }
 td { padding-left: 0.5em; padding-right: 0.5em; }
 
 button.normal  { background-color: #202080; }
