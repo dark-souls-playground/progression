@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   public allZones = Object.values(ZONE);
   public allNodes = Object.values(NODE);
   public showDone: boolean = true;
-  public ackAbout: boolean = false;
+  public agreeToTerms: boolean = false;
   public showAllSpoilers: boolean = false;
   public NODE_WIDTH = 200;
   public NODE_HEIGHT = 48;
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    NODE["LOC_ASYLUM"].done = true;
+    NODE["MAJ_NGAME0"].done = true;
     this.grid = [];
     this.todoList = [];
     for (let zoneKey in this.allZones) {
@@ -54,12 +54,14 @@ export class AppComponent implements OnInit {
     return nodeList;
   }
 
+  /*
   public getStatus(node: Node) {
     if (node.done) return "DONE";
     if (this.isPartiallyUnlocked(node)) return "VISIBLE_BUT_NOT_DOABLE"; // visible but users can't mark as done yet
     if (this.isVisible(node)) return "DOABLE"; // visible and user can mark as done if they did it
     return "NOT_VISIBLE";
   }
+  */
 
   public isDone(node: Node): boolean {
     if (node.done) {
@@ -146,6 +148,15 @@ export class AppComponent implements OnInit {
 
   public markDone(node: Node) {
     node.done = true;
+    this.handleAutoDone(node);
+  }
+
+  public handleAutoDone(prereqNode: Node) {
+    for (let node of this.allNodes) {
+      if (node.autoDoneIf && node.autoDoneIf == prereqNode.id) {
+        node.done = true;
+      }   
+    }
   }
 
   public setShowAllSpoilers(newValue: boolean) {
