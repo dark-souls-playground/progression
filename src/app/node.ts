@@ -1,3 +1,7 @@
+export interface Dictionary<T> {
+    [Key: string]: T;
+}
+
 export interface Zone {
     id: string;
     title: string;
@@ -10,15 +14,22 @@ export interface LevelRange {
 }
 
 export interface Node {
-    zone: Zone;
+    id: string;
+    zoneId: string;
     type: string; // "loc", "kil", "maj"
-    id?: string;
     title: string;
     image?: string;
     recomm?: string;
     ifAny?: string[];
     ifAll?: string[];
+    unlessAny?: string[];
+    lockedUnlessAny?: string[];
     autoDoneIf?: string;
     done?: boolean;
-    visible?: boolean;
+    //visible?: boolean;
+}
+
+export type NodeCondition = string | {
+    ifAny?: NodeCondition[],
+    ifAll?: NodeCondition[]
 }

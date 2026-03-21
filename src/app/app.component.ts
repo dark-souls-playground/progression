@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Node, Zone } from './node';
-import { NODE, ZONE } from './node-data';
+import { Node, Zone, Dictionary, NodeCondition } from './node';
+import { NODES, ZONES } from './node-data';
 
 @Component({
   selector: 'app-root',
@@ -10,36 +10,23 @@ import { NODE, ZONE } from './node-data';
 export class AppComponent implements OnInit {
 
   title = 'progression';
-
-  public allZones = Object.values(ZONE);
-  public allNodes = Object.values(NODE);
+  public allZones = ZONES;
+  public allNodes = NODES;
+  public zoneMap: Dictionary<Zone> = {};
+  public nodeMap: Dictionary<Node> = {};
   public showDone: boolean = true;
   public agreeToTerms: boolean = false;
   public showAllSpoilers: boolean = false;
-  public NODE_WIDTH = 200;
-  public NODE_HEIGHT = 48;
-  public NODE_PADDING_WIDTH = 32;
-  public NODE_PADDING_HEIGHT = 10;
-  public NODE_PADDING_TITLE = 16;
-  public NODE_MARGIN = 10;
-  public UNIT_WIDTH = this.NODE_WIDTH + 2 * this.NODE_PADDING_WIDTH + this.NODE_MARGIN; 
-  public UNIT_HEIGHT = this.NODE_HEIGHT + 2 * this.NODE_PADDING_HEIGHT + this.NODE_MARGIN; 
-  public grid: any = [];
-  public todoList: any = [];
 
   constructor() {
   }
 
   ngOnInit(): void {
-    NODE["MAJ_NGAME0"].done = true;
-    this.grid = [];
-    this.todoList = [];
-    for (let zoneKey in this.allZones) {
-      let zone = this.allZones[zoneKey];
-      let nodesInZone = this.getNodesInZone(zone);
-      for (let node in nodesInZone) {
-        this.todoList.push(node);
-      }
+    for (let zone of this.allZones) {
+      this.zoneMap[zone.id] = zone;
+    }
+    for (let node of this.allNodes) {
+      this.nodeMap[node.id] = node;
     }
   }
 
@@ -47,7 +34,7 @@ export class AppComponent implements OnInit {
     let nodeList = [];
     for (let nodeKey in this.allNodes) {
       let node = this.allNodes[nodeKey];
-      if (node.zone.title == zone.title) {
+      if (node.zoneId == zone.id) {
         nodeList.push(node);
       }
     }
@@ -77,23 +64,35 @@ export class AppComponent implements OnInit {
     return false;
   }
 
-  public isUnlockable(node: Node): boolean {
+  public isAccessible(node: Node): boolean {
+    /*
+    try to keep this orthogonal to whether it's done or not
     if (this.isDone(node)) {
       // already unlocked
       return false;
     }
+    */
+    if (node.unlessAny && node.unlessAny.length > 0) {
+      for (let depId of node.unlessAny) {
+        let dep = this.nodeMap[depId];
+        if (dep.done) {
+          // if any of the "unless" dependencies are done, it's not accessible
+          return false;
+        }
+      }
+    }
     if (node.ifAny && node.ifAny.length > 0) {
       for (let depId of node.ifAny) {
-        let dep = NODE[depId];
+        let dep = this.nodeMap[depId];
         if (dep.done) {
-          // if any of the "any" dependencies are done, it's unlockable
+          // if any of the "any" dependencies are done, it's accessible
           return true;
         }
       }
     }
     if (node.ifAll && node.ifAll.length > 0) {
       for (let depId of node.ifAll) {
-        let dep = NODE[depId];
+        let dep = this.nodeMap[depId];
         if (!dep.done) {
           // if any of the "all" dependencies are NOT done, it's locked
           return false;
@@ -102,23 +101,48 @@ export class AppComponent implements OnInit {
       // if all of the "all" dependencies are done, it's unlockable
       return true;
     }
+    console.warn("Node with no ifAny, ifAll, unlessAny conditions:", node);
+    return false;
+  }
+
+  public isLocked(node: Node): boolean {
+    /*
+    try to keep this orthogonal to whether it's done or not
+    if (this.isDone(node)) {
+      // already unlocked
+      return false;
+    }
+    */
+    if (node.lockedUnlessAny && node.lockedUnlessAny.length > 0) {
+      for (let depId of node.lockedUnlessAny) {
+        let dep = this.nodeMap[depId];
+        if (dep.done) {
+          // if any of the "lockedUnlessAny" dependencies are done, it's unlocked
+          return false;
+        }
+      }
+      return true;
+    }
+    // if there are no lockedUnlessAny conditions, we consider it not locked
+    // (even if it's not accessible yet - keep this orthogonal)
     return false;
   }
 
   public isVisible(node: Node): boolean {
-    //console.log("getting visibility for:", node);
+    // NOTE: Checking to see if we can make this orthogonal to whether it's done...
+    /*
     if (this.isDone(node)) {
       return true;
     }
-    if (this.isUnlockable(node)) {
-      return true;
-    }
-    if (this.isPartiallyUnlocked(node)) {
+    */
+    if (this.isAccessible(node)) {
       return true;
     }
     return false;
   }
 
+  // OLD
+  /*
   public isPartiallyUnlocked(node: Node): boolean {
     //console.log("getting isPartiallyUnlocked for:", node);
     if (node.done) {
@@ -133,7 +157,7 @@ export class AppComponent implements OnInit {
     if (node.ifAll && node.ifAll.length > 1) {
       let numDepsDone = 0;
       for (let depId of node.ifAll) {
-        let dep = NODE[depId];
+        let dep = this.nodeMap[depId];
         if (dep.done) {
           numDepsDone++;
         }
@@ -145,6 +169,7 @@ export class AppComponent implements OnInit {
     }
     return false;
   }
+  */
 
   public markDone(node: Node) {
     node.done = true;
@@ -187,6 +212,32 @@ export class AppComponent implements OnInit {
       if (this.shouldDisplayNode(node)) {
         return true;
       }
+    }
+    return false;
+  }
+
+  public evaluateCondition(c: NodeCondition): boolean {
+    if (typeof c === "string") {
+      let node = this.nodeMap[c];
+      return this.isDone(node);
+    }
+    if (c.ifAny) {
+      for (let subcondition of c.ifAny) {
+        let isDepDone = this.evaluateCondition(subcondition);
+        if (isDepDone) {
+          return true;
+        }
+      }
+      return false;
+    }
+    if (c.ifAll) {
+      for (let subcondition of c.ifAll) {
+        let isDepDone = this.evaluateCondition(subcondition);
+        if (!isDepDone) {
+          return false;
+        }
+      }
+      return true;
     }
     return false;
   }
