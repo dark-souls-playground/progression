@@ -2,13 +2,6 @@
 
   <h1 style="text-align:center;">Dark Souls Progression</h1>
 
-  <!--
-  <button class="warning" *ngIf="!showAllSpoilers" (click)="setShowAllSpoilers(true)" style="width:10em; font-size:1em; margin:1em;">Show Spoilers</button>
-  <button class="warning" *ngIf="showAllSpoilers"  (click)="setShowAllSpoilers(false)" style="width:10em; font-size:1em; margin:1em;">Hide Spoilers</button>
-  <button class="warning" *ngIf="!showDone" (click)="setShowDone(true)" style="width:10em; font-size:1em; margin:1em;">Show Completed</button>
-  <button class="warning" *ngIf="showDone"  (click)="setShowDone(false)" style="width:10em; font-size:1em; margin:1em;">Hide Completed</button>
-  -->
-
   <div *ngIf="!agreeToTerms" style="text-align:center; margin: auto;">
     <div style="padding:16px; border-radius:8px; margin-bottom:1em; background-color:#e0e0e0;">
       <p><b>"What could I do next? No spoilers!"</b></p>
@@ -25,88 +18,6 @@
         [style.backgroundColor]="zone.color"
         [style.display]="shouldDisplayZone(zone) ? 'block' : 'none'"
       >
-      <!--
-         OLD:
-         | node.done | partlyUnlocked =   | isUnlockable =  | Status |
-         |           | !done & ifAll(1/2) | !done & prereqs |        |
-         | ========= | ================== | =============== | ====== |
-         | Y         | -                  | -               | DONE (check)                |
-         | N         | Y                  | -               | LOCKED                      | ISSUE: sometimes shows too early
-         | N         | N                  | N               | SPOILER                     |
-         | -         | -                  | Y               | UNLOCKABLE ("I did" button) |
-
-         NEW:
-         | node.done | accessible() &     | accessible() &  | Status |
-         |           | locked()           | !locked()       |
-         | ========= | ================== | =============== | ====== |
-         | Y         | -                  | -               | DONE (check)            |
-         | N         | Y                  | -               | LOCKED                  | Fixes issue: sometimes shows too early
-         | N         | N                  | Y               | DOABLE ("I did" button) |
-         | N         | N                  | N               | SPOILER                 |
-
-         complex scenarios:
-         - GENERIC: "accessible" vs. "unlockable":
-           - IMPL: "accessible" = ifAll or ifAny is satisfied, regardless of lockedUnlessAny
-           - IMPL: "unlockable" = lockedUnlessAny is satisfied
-           - accessible = you can get there and see it, but can't unlock it yet (e.g. see the door but can't open it yet)
-           - unlockable = you can do the thing to unlock it (e.g. you have the key in your inventory and can open the door)
-             - orthogonal to accessible
-         - Mutually exclusive actions / permanently undoable actions:
-           - IMPL: "unlessAny"
-           - can talk to frampt or kaathe, but not both
-           - kotff: can link the fire or leave the fire, but not both
-           - can start game with master key or without master key, but not both
-         - 2 conditions required to SEE/ACCESS, but no "key" needed to unlock:
-           - IMPL: ifAny or ifAll without any lockedUnlessAny
-           - ring both bells > needed to show dohmnall in Firelink Shrine
-           - ring both bells > needed to open Sen's Fortress gate
-         - able to SEE but still requires at least 1 "key/action" to unlock: 
-           - IMPL: separate "lockedUnlessAny"
-           - exactly 1 "key":
-             - literal key: many doors (Master Key does not unlock)
-             - Abyss requires "ring as key"
-             - parish elevator (visible from firelink, unlocked by "Take elevator down")
-             - orange fog gate: unlocked by PLACING the lordvessel (inventory is not enough)
-             - "Talk to Kaathe" requires "kill 4Kings" to see and "place lordvessel" to unlock
-           - can be unlocked by 2 different "keys"/methods:
-             - multiple cases of "master key or other key"
-           
-
-                <div *ngIf="node.done" style="display:flex; align-items:center; justify-content:center;">
-                  <span style="color:#20a020; font-weight:bold;">&check;</span>
-                </div>
-                <div *ngIf="!node.done && isPartiallyUnlocked(node)"  style="display:flex; align-items:center; justify-content:center;">
-                  <span style="color:#a03020; font-weight:bold;">Locked</span>
-                </div>
-                <div *ngIf="!node.done && !isPartiallyUnlocked(node) && !isUnlockable(node)"  style="display:flex; align-items:center; justify-content:center;">
-                  <span style="color:#a03020; font-weight:bold;">SPOILER</span>
-                </div>
-                <button *ngIf="isUnlockable(node)" class="normal" (click)="markDone(node)" style="width:100%; font-size:1em; height:2.5em;">I did</button>
-
-      -->
-        <!-- OLD BEGIN
-        <div style="text-align: center; padding-bottom:1em;"><b>{{zone.title}}</b></div>
-        <table style="width:100%; border-spacing:0px; border-collapse:collapse;">
-            <tr *ngFor="let node of getNodesInZone(zone)" style="height:4em; background-color:white; border-bottom:solid #e0e0e0 1px;" [style.display]="!(shouldHideDone(node)) && ((isVisible(node) || showAllSpoilers)) ? 'table-row' : 'none'">
-              <td style="width:4em; padding-left:1em; ">
-                <div *ngIf="node.done" style="display:flex; align-items:center; justify-content:center;">
-                  <span style="color:#20a020; font-weight:bold;">&check;</span>
-                </div>
-                <div *ngIf="!node.done && isPartiallyUnlocked(node)"  style="display:flex; align-items:center; justify-content:center;">
-                  <span style="color:#a03020; font-weight:bold;">Locked</span>
-                </div>
-                <div *ngIf="!node.done && !isPartiallyUnlocked(node) && !isUnlockable(node)"  style="display:flex; align-items:center; justify-content:center;">
-                  <span style="color:#a03020; font-weight:bold;">SPOILER</span>
-                </div>
-                <button *ngIf="isUnlockable(node)" class="normal" (click)="markDone(node)" style="width:100%; font-size:1em; height:2.5em;">I did</button>
-              </td>
-              <td>
-                <span>{{getVerb(node)}} {{node.title}}</span><br/>
-              </td>
-            </tr>
-        </table>
-        OLD END -->
-        <!-- NEW BEGIN -->
         <div style="text-align: center; padding-bottom:1em;"><b>{{zone.title}}</b></div>
         <table style="width:100%; border-spacing:0px; border-collapse:collapse;">
             <tr *ngFor="let node of getNodesInZone(zone)" style="height:4em; background-color:white; border-bottom:solid #e0e0e0 1px;" [style.display]="!(shouldHideDone(node)) && ((isVisible(node) || showAllSpoilers)) ? 'table-row' : 'none'">
@@ -130,7 +41,6 @@
               </td>
             </tr>
         </table>
-        <!-- NEW END -->
       </div>
     </div>
   
@@ -139,28 +49,29 @@
       <button class="normal" *ngIf="showDone"  (click)="setShowDone(false)" style="width:10em; font-size:1em; margin:0.5em;">Hide Completed</button>
     </div>
   
-    <div style="padding:8px; text-align:center;">
-      <p>Still want some help?</p>
-      <p><span style="font-weight:bold; color:#a03020;">r/darksouls</span></p>
-      <p>"Don't you dare go hollow."</p>
-    </div>
-  
     <div style="text-align:center; margin: auto;">
       <button class="warning" *ngIf="!showAllSpoilers" (click)="setShowAllSpoilers(true)" style="width:10em; font-size:1em; margin:0.5em;">Show All Spoilers</button>
       <button class="warning" *ngIf="showAllSpoilers"  (click)="setShowAllSpoilers(false)" style="width:10em; font-size:1em; margin:0.5em;">Hide Spoilers</button>
     </div>
   
-      <!--
-      <ul style="text-align:left">
-        <ng-container *ngFor="let zone of allZones">
-          <ng-container *ngFor="let node of getNodesInZone(zone)">
-            <li *ngIf="node.done">{{getVerb(node)}} {{node.title}}</li>
-          </ng-container>
-        </ng-container>
-      </ul>
-      -->
+    <div style="padding:8px; text-align:center;">
+      <div style="height: 2em; display: flex; align-items: center; justify-content: center;">
+        Still want help?
+        <img src="assets/images/reddit-logo-blood.png" alt="Reddit" style="height:1em; margin-right:5px; margin-left:5px;" />
+        <a href="https://www.reddit.com/r/darksouls/" target="_blank">
+          <span style="font-weight:bold; color:#a03020;">r/darksouls</span>
+        </a>
+      </div>
+      <div style="height: 2em; display: flex; align-items: center; justify-content: center;">
+        Feedback?
+        <img src="assets/images/github-logo.png" alt="GitHub" style="height:1em; margin-right:5px; margin-left:5px;" />
+        <a href="https://github.com/dark-souls-playground/progression/issues" target="_blank">
+          <span style="font-weight:bold; color:black;">issues</span>
+        </a>
+      </div>
+      <p style="font-weight:bold; color:#a03020;">"Don't you dare go hollow."</p>
+    </div>
+  
   </div>
   
-
-
 </div>

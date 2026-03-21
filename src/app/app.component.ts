@@ -41,15 +41,6 @@ export class AppComponent implements OnInit {
     return nodeList;
   }
 
-  /*
-  public getStatus(node: Node) {
-    if (node.done) return "DONE";
-    if (this.isPartiallyUnlocked(node)) return "VISIBLE_BUT_NOT_DOABLE"; // visible but users can't mark as done yet
-    if (this.isVisible(node)) return "DOABLE"; // visible and user can mark as done if they did it
-    return "NOT_VISIBLE";
-  }
-  */
-
   public isDone(node: Node): boolean {
     if (node.done) {
       return true;
@@ -65,13 +56,6 @@ export class AppComponent implements OnInit {
   }
 
   public isAccessible(node: Node): boolean {
-    /*
-    try to keep this orthogonal to whether it's done or not
-    if (this.isDone(node)) {
-      // already unlocked
-      return false;
-    }
-    */
     if (node.unlessAny && node.unlessAny.length > 0) {
       for (let depId of node.unlessAny) {
         let dep = this.nodeMap[depId];
@@ -106,13 +90,6 @@ export class AppComponent implements OnInit {
   }
 
   public isLocked(node: Node): boolean {
-    /*
-    try to keep this orthogonal to whether it's done or not
-    if (this.isDone(node)) {
-      // already unlocked
-      return false;
-    }
-    */
     if (node.lockedUnlessAny && node.lockedUnlessAny.length > 0) {
       for (let depId of node.lockedUnlessAny) {
         let dep = this.nodeMap[depId];
@@ -124,52 +101,15 @@ export class AppComponent implements OnInit {
       return true;
     }
     // if there are no lockedUnlessAny conditions, we consider it not locked
-    // (even if it's not accessible yet - keep this orthogonal)
     return false;
   }
 
   public isVisible(node: Node): boolean {
-    // NOTE: Checking to see if we can make this orthogonal to whether it's done...
-    /*
-    if (this.isDone(node)) {
-      return true;
-    }
-    */
     if (this.isAccessible(node)) {
       return true;
     }
     return false;
   }
-
-  // OLD
-  /*
-  public isPartiallyUnlocked(node: Node): boolean {
-    //console.log("getting isPartiallyUnlocked for:", node);
-    if (node.done) {
-      return false;
-    }
-    // we only show something as locked if there is at least 2 dependencies
-    // AND they have not unlocked all of them
-    if (node.ifAny && node.ifAny.length > 0) {
-      // so for an OR, this is never true
-      return false;
-    }
-    if (node.ifAll && node.ifAll.length > 1) {
-      let numDepsDone = 0;
-      for (let depId of node.ifAll) {
-        let dep = this.nodeMap[depId];
-        if (dep.done) {
-          numDepsDone++;
-        }
-      }
-      if (numDepsDone > 0 && numDepsDone < node.ifAll.length) {
-        return true;
-      }
-      return false;
-    }
-    return false;
-  }
-  */
 
   public markDone(node: Node) {
     node.done = true;
