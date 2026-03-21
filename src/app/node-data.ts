@@ -28,17 +28,8 @@ export const ZONES: Zone[] = [
 
 export const NODES: Node[] = [
 
-    // TODO: MASTER KEY (NOT MVP v1.0)
-    //   "Did you choose Master Key as starting gift?"
-    //   "Get Master Key from ???"
-    //   Fix doors (e.g. Watchtower Key OR Master Key)
-    // TODO: finish Valley of Drakes
-    // TODO: auto
-    // TODO: exclusive
-    // TODO: missions
     // TODO: NPC dialogue text
     // TODO: Revisit Asylum, get Peculiar Doll, Painted World (optional content)
-    // TODO: Key to Londo Ruins...
     // TODO: Izalith shortcut via Chaos Servant covenant +30 Humanity
     // TODO: Unlock other shortcuts?
 
@@ -60,7 +51,7 @@ export const NODES: Node[] = [
     { id: "MAJ_BUYMKY", zoneId: "FIRELI", type: "maj", title: "Buy Master Key from Domhnall for 5,000 souls", ifAll: ["MAJ_BELL01", "MAJ_BELL02"], unlessAny: ["MAJ_NGWIMK"] },
     // If you talk to Frampt BEFORE getting the Lordvessel, he says:
     //   "...To this end, you must visit Anor Londo, and acquire the Lordvessel."
-    { id: "MAJ_JFRAMP", zoneId: "FIRELI", type: "maj", title: "Talk to Frampt after getting the Lordvessel", ifAll: ["MAJ_BELL01", "MAJ_BELL02"], lockedUnlessAny: ["MAJ_GETVES"], recomm: "Lv 50-70" },
+    { id: "MAJ_JFRAMP", zoneId: "FIRELI", type: "maj", title: "Talk to Frampt after getting the Lordvessel", ifAll: ["MAJ_BELL01", "MAJ_BELL02"], lockedUnlessAny: ["MAJ_GETVES"], unlessAny: ["MAJ_JKAATH"], recomm: "Lv 50-70" },
 
     { id: "LOC_FIRALT", zoneId: "FIRALT", type: "loc", title: "Firelink Altar", ifAny: ["MAJ_JFRAMP", "MAJ_JKAATH"], recomm: "Lv 50-60" },
     { id: "MAJ_PUTVES", zoneId: "FIRALT", type: "maj", title: "Place the Lordvessel", ifAny: ["LOC_FIRALT"], recomm: "Lv 50-60" },
