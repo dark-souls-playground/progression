@@ -2,15 +2,19 @@ import { Node, Zone } from './node';
 
 export const ZONES: Zone[] = [
     { id: "ASYLUM", color: "#c0a0a0", title: "Undead Asylum" },
+    { id: "ASYLU2", color: "#c0a0a0", title: "Undead Asylum, Revisited" },
     { id: "FIRELI", color: "#c0ffc0", title: "Firelink Shrine" },
     { id: "UDBURG", color: "#c0c0c0", title: "Undead Burg" },
     { id: "PARISH", color: "#c0c0a0", title: "Undead Parish" },
     { id: "VDRAKE", color: "#a0ffc0", title: "Valley of Drakes" },
     { id: "DEPTHS", color: "#a0a0a0", title: "The Depths" },
     { id: "BLIGHT", color: "#ffffa0", title: "Blighttown" },
+    { id: "GHOLOW", color: "#a08040", title: "The Great Hollow" },
+    { id: "ASHLAK", color: "#a08040", title: "Ash Lake" },
     { id: "QUEDOM", color: "#ffa0a0", title: "Quelaag's Domain" },
     { id: "SENFOR", color: "#ff8080", title: "Sen's Fortress" },
     { id: "ANRLND", color: "#ffffa0", title: "Anor Londo" },
+    { id: "PAINTD", color: "#f0f0f0", title: "Painted World" },
     { id: "FIRALT", color: "#ffa0a0", title: "Firelink Altar" },
     { id: "CATACO", color: "#ff8080", title: "The Catacombs" },
     { id: "TMBGNT", color: "#c04040", title: "Tomb of the Giants" },
@@ -29,7 +33,6 @@ export const ZONES: Zone[] = [
 export const NODES: Node[] = [
 
     // TODO: NPC dialogue text
-    // TODO: Revisit Asylum, get Peculiar Doll, Painted World (optional content)
     // TODO: Izalith shortcut via Chaos Servant covenant +30 Humanity
     // TODO: Unlock other shortcuts?
 
@@ -40,14 +43,17 @@ export const NODES: Node[] = [
     { id: "MAJ_NGWIMK", zoneId: "ASYLUM", type: "maj", title: "Start Game with Master Key", ifAny: ["MAJ_NGAME0"], unlessAny: ["MAJ_NGWOMK"] },
     { id: "MAJ_NGWOMK", zoneId: "ASYLUM", type: "maj", title: "Start Game without Master Key", ifAny: ["MAJ_NGAME0"], unlessAny: ["MAJ_NGWIMK"] },
     { id: "MAJ_GETMKY", zoneId: "ASYLUM", type: "maj", title: "Get the Master Key", ifAny: ["MAJ_NGWIMK"], autoDoneIf: "MAJ_NGWIMK" },
-
     { id: "KIL_ASYDEM", zoneId: "ASYLUM", type: "kil", title: "Asylum Demon", ifAny: ["MAJ_NGWIMK", "MAJ_NGWOMK"], recomm: "Lv 1-10", image: "assets/images/enemies/asylum-demon.jpg" },
     { id: "LOC_FIRELI", zoneId: "ASYLUM", type: "loc", title: "Firelink Shrine", ifAny: ["KIL_ASYDEM"], recomm: "Lv 1-10", image: "assets/images/places/firelink-shrine.jpg" },
+
+    { id: "GET_PEDOLL", zoneId: "ASYLU2", type: "get", title: "Peculiar Doll", ifAny: ["MAJ_CRNEST"] },
+    { id: "KIL_STRDEM", zoneId: "ASYLU2", type: "kil", title: "Stray Demon", ifAny: ["MAJ_CRNEST"] },
 
     { id: "LOC_UBURG1", zoneId: "FIRELI", type: "loc", title: "Undead Burg (up skinny hill)", ifAny: ["LOC_FIRELI"], recomm: "Lv 1-10" },
     { id: "LOC_CATACO", zoneId: "FIRELI", type: "loc", title: "Catacombs (past skeletons)", ifAny: ["LOC_FIRELI"], recomm: "Lv 30-50" },
     { id: "LOC_NLRUIF", zoneId: "FIRELI", type: "loc", title: "New Londo Ruins (down elevator)", ifAny: ["LOC_FIRELI"], autoDoneIf: "LOC_NLRUIN", recomm: "Lv 50-70" },
     { id: "LOC_ELEVAT", zoneId: "FIRELI", type: "maj", title: "Find a way to fix elevator (near Petrus)", ifAny: ["LOC_FIRELI"], lockedUnlessAny: ["MAJ_FIXELE"], autoDoneIf: "MAJ_FIXELE", recomm: "Lv 1-10" },
+    { id: "MAJ_CRNEST", zoneId: "FIRELI", type: "maj", title: "In crow's nest, curl into a ball for 30 sec", ifAny: ["LOC_ELEVAT"], recomm: "Lv 1-10" },
     { id: "MAJ_BUYMKY", zoneId: "FIRELI", type: "maj", title: "Buy Master Key from Domhnall for 5,000 souls", ifAll: ["MAJ_BELL01", "MAJ_BELL02"], unlessAny: ["MAJ_NGWIMK"] },
     // If you talk to Frampt BEFORE getting the Lordvessel, he says:
     //   "...To this end, you must visit Anor Londo, and acquire the Lordvessel."
@@ -83,6 +89,14 @@ export const NODES: Node[] = [
     { id: "LOC_BLIGHB", zoneId: "BLIGHT", type: "loc", title: "Blighttown back (wheel elevator)", ifAny: ["LOC_BLIGHL", "LOC_VDRAKE"], recomm: "Lv 30-40" },
     { id: "GET_NLRKEY", zoneId: "BLIGHT", type: "get", title: "Key to New Londo Ruins", ifAny: ["LOC_BLIGHB"], recomm: "Lv ??-??" },
     { id: "LOC_QUEDOM", zoneId: "BLIGHT", type: "loc", title: "Quelaag's Domain", ifAny: ["LOC_BLIGHL"], recomm: "Lv 35-45" },
+    { id: "LOC_GHOLOW", zoneId: "BLIGHT", type: "loc", title: "The Great Hollow", ifAny: ["LOC_BLIGHL"] },
+
+    { id: "LOC_ASHLAK", zoneId: "GHOLOW", type: "loc", title: "Ash Lake", ifAny: ["LOC_GHOLOW"] },
+
+    { id: "MAJ_STNDRG", zoneId: "ASHLAK", type: "maj", title: "Talk to Stone Dragon", ifAny: ["LOC_ASHLAK"] },
+
+    //  { id: "GHOLOW", color: "#a08040", title: "The Great Hollow" },
+    // { id: "ASHLAK", color: "#a08040", title: "Ash Lake" },
 
     { id: "KIL_QUELAA", zoneId: "QUEDOM", type: "kil", title: "Chaos Witch Quelaag", ifAny: ["LOC_QUEDOM"], recomm: "Lv 35-45" },
     { id: "MAJ_BELL02", zoneId: "QUEDOM", type: "maj", title: "Ring the Second Bell", ifAny: ["KIL_QUELAA"], recomm: "Lv 35-45" },
@@ -112,9 +126,15 @@ export const NODES: Node[] = [
     { id: "KIL_IRNGOL", zoneId: "SENFOR", type: "kil", title: "Iron Golem", ifAny: ["LOC_SENFOR"], recomm: "Lv 35-45" },
     { id: "LOC_ANRLND", zoneId: "SENFOR", type: "maj", title: "Examine the Ring of Light", ifAny: ["KIL_IRNGOL"], recomm: "Lv 45-60" },
 
+    { id: "MAJ_ENTERP", zoneId: "ANRLND", type: "maj", title: "Enter the Painting", ifAny: ["LOC_ANRLND"], lockedUnlessAny: ["GET_PEDOLL"], recomm: "Lv 50-60" },
+    { id: "MAJ_GWYNDO", zoneId: "ANRLND", type: "kil", title: "Make Darkmoon Tomb statue disappear", ifAny: ["LOC_ANRLND"], lockedUnlessAny: ["GET_DSRING"], recomm: "Lv 50-60" },
+    { id: "KIL_GWYNDO", zoneId: "ANRLND", type: "kil", title: "Dark Sun Gwyndolyn", ifAny: ["MAJ_GWYNDO"], recomm: "Lv 50-60" },
     { id: "KIL_ORNSMO", zoneId: "ANRLND", type: "kil", title: "Ornstein & Smough", ifAny: ["LOC_ANRLND"], recomm: "Lv 50-60" },
     { id: "MAJ_GETVES", zoneId: "ANRLND", type: "maj", title: "Get the Lordvessel", ifAny: ["KIL_ORNSMO"], recomm: "Lv 50-60" },
 
+    { id: "LOC_PAINTD", zoneId: "PAINTD", type: "maj", title: "Do Painted World content", ifAny: ["MAJ_ENTERP"] },
+
+    { id: "GET_DSRING", zoneId: "CATACO", type: "get", title: "Darkmoon Seance Ring", ifAny: ["LOC_CATACO"], recomm: "Lv 30-50" },
     { id: "KIL_PINWHL", zoneId: "CATACO", type: "kil", title: "Pinwheel", ifAny: ["LOC_CATACO"], recomm: "Lv 30-50" },
     { id: "LOC_TMBGNT", zoneId: "CATACO", type: "loc", title: "Tomb of the Giants", ifAny: ["KIL_PINWHL"], recomm: "Lv 55-75" },
 
