@@ -26,15 +26,17 @@ export const ZONES: Zone[] = [
     { id: "ABYSS1", color: "#404040", title: "The Abyss" },
     { id: "DMRUIN", color: "#ffc080", title: "Demon Ruins" },
     { id: "IZALIT", color: "#ffa040", title: "Lost Izalith" },
-    { id: "SANCTG", color: "#606060", title: "DLC (Sanctuary Garden+)" },
+    { id: "SANCTG", color: "#b0b080", title: "DLC: Sanctuary Garden" },
+    { id: "OOLSNC", color: "#408040", title: "DLC: Oolacile Sanctuary" },
+    { id: "ROYLWD", color: "#a08040", title: "DLC: Royal Wood" },
+    { id: "OOLTWN", color: "#507050", title: "DLC: Oolacile Township" },
+    { id: "CABYSS", color: "#404040", title: "DLC: Chasm of the Abyss" },
     { id: "KILNFF", color: "#606060", title: "Kiln of the First Flame" }
 ];
 
 export const NODES: Node[] = [
 
-    // TODO: NPC dialogue text
     // TODO: Izalith shortcut via Chaos Servant covenant +30 Humanity
-    // TODO: Unlock other shortcuts?
 
     { id: "MAJ_NGAME0", zoneId: "ASYLUM", type: "maj", title: "Start New Game", ifAny: [], recomm: "Lv 1-10", image: "assets/images/places/northern-undead-asylum.jpg",
       done: true // auto-done from the very beginning
@@ -94,9 +96,6 @@ export const NODES: Node[] = [
     { id: "LOC_ASHLAK", zoneId: "GHOLOW", type: "loc", title: "Ash Lake", ifAny: ["LOC_GHOLOW"] },
 
     { id: "MAJ_STNDRG", zoneId: "ASHLAK", type: "maj", title: "Talk to Stone Dragon", ifAny: ["LOC_ASHLAK"] },
-
-    //  { id: "GHOLOW", color: "#a08040", title: "The Great Hollow" },
-    // { id: "ASHLAK", color: "#a08040", title: "Ash Lake" },
 
     { id: "KIL_QUELAA", zoneId: "QUEDOM", type: "kil", title: "Chaos Witch Quelaag", ifAny: ["LOC_QUEDOM"], recomm: "Lv 35-45" },
     { id: "MAJ_BELL02", zoneId: "QUEDOM", type: "maj", title: "Ring the Second Bell", ifAny: ["KIL_QUELAA"], recomm: "Lv 35-45" },
@@ -171,7 +170,21 @@ export const NODES: Node[] = [
     { id: "KIL_BCHAOS", zoneId: "IZALIT", type: "kil", title: "Bed of Chaos", ifAny: ["LOC_IZALIT"], recomm: "Lv 65-80" },
     { id: "GET_LSOUL2", zoneId: "IZALIT", type: "get", title: "Lord Soul (Bed of Chaos)", ifAny: ["KIL_BCHAOS"], autoDoneIf: "KIL_BCHAOS", recomm: "Lv 65-80" },
 
-    { id: "MAJ_SANCTG", zoneId: "SANCTG", type: "maj", title: "(DLC) Do DLC Content", ifAny: ["MAJ_DLCVTX"] },
+    { id: "KIL_SANCTG", zoneId: "SANCTG", type: "kil", title: "Sanctuary Guardian", ifAny: ["MAJ_DLCVTX"] },
+    { id: "LOC_OOLSNC", zoneId: "SANCTG", type: "loc", title: "Oolacile Sanctuary", ifAny: ["KIL_SANCTG"] },
+
+    { id: "MAJ_ELIZAB", zoneId: "OOLSNC", type: "maj", title: "Talk to Elizabeth", ifAny: ["LOC_OOLSNC"] },
+    { id: "LOC_ROYLWD", zoneId: "OOLSNC", type: "loc", title: "Royal Wood", ifAny: ["LOC_OOLSNC"] },
+
+    { id: "KIL_ARTORI", zoneId: "ROYLWD", type: "kil", title: "Artorias", ifAny: ["LOC_ROYLWD"] },
+    { id: "MAJ_HGOUGH", zoneId: "ROYLWD", type: "maj", title: "Get Gough's Help with Kalameet", ifAny: ["KIL_ARTORI"], unlessAny: ["KIL_KALAMH"] },
+    { id: "KIL_KALAMH", zoneId: "ROYLWD", type: "kil", title: "Kalameet (the hard way)", ifAny: ["LOC_ROYLWD"], unlessAny: ["MAJ_HGOUGH"] },
+    { id: "KIL_KALAME", zoneId: "ROYLWD", type: "kil", title: "Kalameet (the easy way)", ifAny: ["MAJ_HGOUGH"], unlessAny: ["KIL_KALAMH"] },
+    { id: "LOC_OOLTWN", zoneId: "ROYLWD", type: "loc", title: "Oolacile Township", ifAny: ["KIL_ARTORI"] },
+
+    { id: "LOC_CABYSS", zoneId: "OOLTWN", type: "loc", title: "Chasm of the Abyss", ifAny: ["LOC_OOLTWN"] },
+
+    { id: "KIL_MANUSF", zoneId: "CABYSS", type: "kil", title: "Manus, Father of the Abyss", ifAny: ["LOC_CABYSS"] },
 
     { id: "MAJ_FILVES", zoneId: "KILNFF", type: "maj", title: "Fill the Lordvessel completely", ifAll: ["GET_LSSHD1", "GET_LSSHD2", "GET_LSOUL1", "GET_LSOUL2"], recomm: "Lv 70-99" },
     { id: "LOC_KILNFF", zoneId: "KILNFF", type: "loc", title: "Descend into land of ashes and Black Knights", ifAll: ["MAJ_FILVES"], recomm: "Lv 70-99" },
